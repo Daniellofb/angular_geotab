@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
 
   public title = 'Realizar Peticion';
   public currentEuroRates: any = null;
+  public resultData: any;
 
   private urlapi = 'https://attcflotilla236.geotab.com/apiv1';
   private result = new Date().toISOString();
@@ -45,7 +46,12 @@ export class AppComponent implements OnInit {
     }
     // for (let i = 1; i > 0; i++) {
       // this.httpClient.get(url).subscribe(apiData => (this.currentEuroRates = apiData));
-      this.httpClient.post(this.urlapi, payloadObject).subscribe();
+    setInterval(() => {
+      this.httpClient.post(this.urlapi, payloadObject).subscribe(
+        data => this.resultData = data['result'][0]['data']
+      );
+      console.log(this.resultData);
+    }, 20000)
     // }
   }
 }
