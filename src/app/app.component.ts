@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { TutorialService } from './services/geotab.service';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +13,40 @@ export class AppComponent implements OnInit {
   public currentEuroRates: any = null;
   public resultData: any;
 
+  public demo = {
+    title: 'Uno',
+    description: 'Dos',
+    published: false
+  };
+  public submitted = false;
+
   private urlapi = 'https://attcflotilla236.geotab.com/apiv1';
   private result = new Date().toISOString();
 
   constructor(
+    private tutorialService: TutorialService,
     private httpClient: HttpClient 
   ) {}
 
   ngOnInit() {
     // this.getCurrentEuroRates();
+  }
+
+  public saveTutorial(): void {
+    const data = {
+      title: this.demo.title,
+      description: this.demo.description
+    };
+
+    this.tutorialService.create(data)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.submitted = true;
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   public getCurrentEuroRates() {
