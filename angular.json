@@ -129,6 +129,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "geotab"
+    }
+  },
+  "defaultProject": "geotab",
+  "cli": {
+    "analytics": "df3f280e-5cab-4f19-bb50-186606031c88"
+  }
 }
